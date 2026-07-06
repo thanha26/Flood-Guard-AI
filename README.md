@@ -2,6 +2,12 @@
 
 An end-to-end Machine Learning project that predicts flood probability using environmental and infrastructure factors. The system is built using **XGBoost** and deployed with an interactive **Streamlit** web application that provides flood risk assessment and AI-based safety recommendations.
 
+## Live Demo
+
+**Streamlit App:** https://flood-guard-ai.streamlit.app/
+
+**GitHub Repository:** https://github.com/thanha26/Flood-Guard-AI
+
 ## Features
 
 - Predicts flood probability using an XGBoost regression model.

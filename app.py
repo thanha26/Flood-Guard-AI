@@ -2,10 +2,10 @@ import streamlit as st
 import joblib
 import pandas as pd
 
-# Load trained model
+
 model = joblib.load("flood_guard_model.pkl")
 
-# Page setup
+
 st.set_page_config(
     page_title="Flood Guard",
     page_icon="🌊",
@@ -13,9 +13,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ---------------------------------------------------------------------------
-# CUSTOM STYLING (UI ONLY — does not affect any prediction logic below)
-# ---------------------------------------------------------------------------
+
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
@@ -138,9 +136,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------------------------------------------------------------------
-# HERO HEADER
-# ---------------------------------------------------------------------------
+
 st.markdown("""
 <div class="hero">
     <h1>🌊 Flood Guard</h1>
@@ -149,10 +145,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ---------------------------------------------------------------------------
-# INPUTS — grouped into attractive sections using tabs
-# (same widgets, same variable names, same ranges/defaults as original)
-# ---------------------------------------------------------------------------
+
 tab1, tab2, tab3, tab4 = st.tabs([
     "🌦️ Environmental", "🏞️ Land & Water", "🏙️ Infrastructure & Human Factors", "🚨 Preparedness"
 ])
@@ -212,10 +205,6 @@ with tab4:
 st.write("")
 predict_clicked = st.button("🔍 Predict Flood Risk")
 
-# ---------------------------------------------------------------------------
-# VALIDATION — ensures every field is filled before prediction runs
-# (does not alter the prediction logic itself, only guards entry to it)
-# ---------------------------------------------------------------------------
 all_inputs = {
     "Monsoon Intensity": monsoon, "Topography Drainage": topography, "River Management": river,
     "Deforestation": deforestation, "Urbanization": urbanization, "Climate Change": climate,
@@ -231,9 +220,6 @@ missing_fields = [name for name, val in all_inputs.items() if val is None]
 if predict_clicked and missing_fields:
     st.warning(f"⚠️ Please enter all values before predicting. Missing: {', '.join(missing_fields)}")
 
-# ---------------------------------------------------------------------------
-# PREDICTION LOGIC — UNCHANGED FROM ORIGINAL
-# ---------------------------------------------------------------------------
 if predict_clicked and not missing_fields:
     input_data = pd.DataFrame([[
         monsoon, topography, river, deforestation, urbanization,
@@ -253,7 +239,7 @@ if predict_clicked and not missing_fields:
     prediction = model.predict(input_data)[0]
     prediction_percent = prediction * 100
 
-    # Risk category
+  
     if prediction < 0.45:
         risk_level = "🟢 LOW RISK"
         recommendation = """
@@ -284,9 +270,7 @@ if predict_clicked and not missing_fields:
         """
         accent = "#ef4444"
 
-    # -----------------------------------------------------------------
-    # RESULT DISPLAY — restyled presentation of the same computed values
-    # -----------------------------------------------------------------
+   
     st.markdown("---")
     st.markdown('<div class="section-title" style="font-size:1.3rem;">📊 Prediction Result</div>', unsafe_allow_html=True)
 
